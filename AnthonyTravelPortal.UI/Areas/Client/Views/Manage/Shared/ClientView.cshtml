@@ -1,0 +1,24 @@
+﻿@using AnthonyTravelPortal.UI.Areas.Client.Controllers
+@model List<AnthonyTravelPortal.UI.Areas.Client.ViewModels.ClientVm>
+
+@foreach (var item in Model)
+{
+	<tr>
+		<td>
+			@Html.DisplayFor(modelItem => item.Client_Name)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Institution_ID)
+		</td>
+		<td>
+			<div class="btn-group btn-group-sm">
+				<button type="button" class="btn btn-primary btn-sm jsEditClient" data-edit-action="@Url.Action(nameof(ManageController.GetClient), "Manage", new { area = "Client" , ClientId = item.Client_ID  })">
+					<i class="bi-pencil"></i> Edit
+				</button>
+				<button type="button" class="btn btn-danger btn-sm jsRemoveClient" data-remove-action="@Url.Action(nameof(ManageController.DeleteClient), "Manage", new {area = "Client" , ClientId = item.Client_ID })">
+					<i class="bi-x"></i> Delete
+				</button>
+			</div>
+		</td>
+	</tr>
+}

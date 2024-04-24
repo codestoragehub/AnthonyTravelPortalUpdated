@@ -1,0 +1,85 @@
+﻿@using AnthonyTravelPortal.UI.Areas.UserAccount.Controllers
+@using AnthonyTravelPortal.Domain.Enums
+@model AnthonyTravelPortal.UI.Areas.UserAccount.ViewModels.UserClientVm
+
+@{
+    string actionName;
+    string buttonText;
+   if (Model.User_ID is null)
+    {
+        actionName = nameof(ManageUserController.CreateOrUpdateUser);
+        buttonText = "Create User";
+    }
+    else
+    {
+        actionName = nameof(ManageUserController.UpdateUser);
+        buttonText = "Update User";
+    }
+
+    var disabed = Model.User_ID is not null? "disabledInput" : "";
+}
+
+@using (Html.BeginForm(actionName, "ManageUser", FormMethod.Post, new
+{
+    @class = "jsUserForm formclass",
+    data_user_id = Model.User_ID
+}))
+{
+    @Html.HiddenFor(f => f.User_ID)
+    @Html.HiddenFor(f => f.ID)
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="User_Name"></label>
+            <input asp-for="User_Name" class="form-control jsUserName" placeholder="Name" autocomplete="username" aria-required="true" />
+            <span asp-validation-for="User_Name" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group col-md-6">
+            <label asp-for="User_Email"></label>
+
+            <input asp-for="User_Email" class="form-control jsUserEmail @disabed" placeholder="Email" autocomplete="username" aria-required="true" />
+
+            <span asp-validation-for="User_Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="Phone_Number"></label>
+            <input asp-for="Phone_Number" class="form-control jsPhoneNumber" placeholder="Phone Number" autocomplete="username" aria-required="true" />
+            <span asp-validation-for="Phone_Number" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group col-md-6">
+            <label asp-for="Role_ID"></label>
+            @Html.DropDownListFor(m => m.Role_ID, Html.GetEnumSelectList<Roles>(), "Select", new { @class = "form-control jsUserRole disabed"  })
+        </div>
+
+        <div class="form-group col-md-12">
+            
+            <label asp-for="Client_ID"></label>
+            @Html.DropDownListFor(m => m.Client_ID, Model.Clientlist, "Select", new { @class = "form-control jsuserClient disabed"})
+        </div>
+
+        @if(@Model.User_ID == null)
+        {
+        <div class="form-group col-md-6">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control jsUserPwd" placeholder="Password" autocomplete="new-password" aria-required="true" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" class="form-control jsUserConfirmPwd" placeholder="Confirm Password" autocomplete="new-password" aria-required="true" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary btn-sm" type="submit">@buttonText</button>
+            <button type="button" class="btn btn-danger btn-sm close-button JsCancel" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+}

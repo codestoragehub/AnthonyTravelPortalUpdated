@@ -1,0 +1,51 @@
+﻿@using AnthonyTravelPortal.UI.Areas.Client.Controllers
+@model AnthonyTravelPortal.UI.Areas.Client.ViewModels.ClientVm
+
+@{
+	string actionName;
+	string buttonText;
+	if (Model.Client_ID is null or 0)
+	{
+		actionName = nameof(ManageController.CreateOrUpdateClient);
+		buttonText = "Create Client";
+	}
+	else
+	{
+		actionName = nameof(ManageController.UpdateClient);
+		buttonText = "Update Client";
+	}
+
+}
+
+@using (Html.BeginForm(actionName, "Manage", FormMethod.Post, new
+{
+	@class = "jsClientForm formclass",
+	data_Client_id = Model.Client_ID
+}))
+{
+	@Html.HiddenFor(f => f.Client_ID)
+	//@Html.HiddenFor(f => f.UserId)
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(f => f.Client_Name , new { @class="required" })
+				@Html.TextBoxFor(f => f.Client_Name, new { @class = "form-control jsClientName", aria_required= true })
+				@Html.ValidationMessageFor(f => f.Client_Name)
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(f => f.Institution_ID , new { @class="required" })
+				@Html.DropDownListFor(x => x.Institution_ID, Model.Institutionlist,"Select" ,new { id = "ddlInstitutionType", @class = "form-control jsInstitutiontype", @title = "InstitutionType" })
+				@Html.ValidationMessageFor(f => f.Institution_ID)
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button class="btn btn-primary btn-sm" type="submit">@buttonText</button>
+			<button type="button" class="btn btn-danger btn-sm close-button JsCancel" data-dismiss="modal">Cancel</button>
+		</div>
+	</div>
+}

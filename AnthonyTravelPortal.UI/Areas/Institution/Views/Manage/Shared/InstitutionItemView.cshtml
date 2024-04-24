@@ -1,0 +1,34 @@
+﻿@using AnthonyTravelPortal.UI.Areas.Institution.Controllers
+@model List<AnthonyTravelPortal.UI.Areas.Institution.ViewModels.InstitutionVm>
+
+<h1>Institution</h1>
+
+<div class="padding-20 jsInstitution">
+	<div class="btn-group btn-group-sm">
+		<button type="button" class="btn btn-success btn-sm jsAddinstitution" data-add-action="@Url.Action(nameof(ManageController.AddInstitution), "Manage", new { area = "Institution" })">
+			<i class="bi-plus-circle"></i> Add Institution
+		</button>
+		<button type="button" class="btn btn-primary btn-sm jsReloadInstitutions">
+			<i class="bi-recycle"></i> Reload Institution
+		</button>
+	</div>
+
+	<div class="row">
+		<table id="tblInstitutions" class="table table-striped">
+			<caption>List of Institutions</caption>
+			<thead>
+				<tr>
+					<th>Institution Name</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody class="jsInstitutionItems" data-refresh-action="@Url.Action(nameof(ManageController.GetInstitutions), "Manage", new { area = "Institution" })">
+				@if (Model != null)
+				{
+					@(await Html.PartialAsync("~/Areas/Institution/Views/Manage/Shared/InstitutionView.cshtml", Model))
+				}
+			</tbody>
+		</table>
+	</div>
+	<a href="@Url.Action(nameof(ManageController.CreateNewInstitution),"Manage", new { Area="Institution" })" class="btn btn-primary">InstitutionClone</a>
+</div>

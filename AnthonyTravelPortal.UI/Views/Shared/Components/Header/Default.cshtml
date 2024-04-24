@@ -1,0 +1,52 @@
+﻿@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager
+@{
+    var user = await _userManager.GetUserAsync(User);
+    var userText = string.IsNullOrWhiteSpace(user?.FirstName)
+        ? user?.Email
+        : $"{user.FirstName} {user.LastName}";
+}
+
+<nav id="navigationBar" class="main-header navbar navbar-expand  navbar-light">
+    <button type="button" id="sidebarCollapse" class="btn btn-info" title="Collapse Sidebar">
+        <i class="bi-justify"></i>
+    </button>
+
+    <ul class="navbar-nav" style="margin-inline-start:auto;">
+        <li class="nav-item dropdown no-arrow"></li>
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span data-toggle="tooltip" title="User Profile">
+                        <span class="mr-2 d-none d-lg-inline  text-gray-dark small">
+                            @userText
+                        </span>
+                        <img alt="Profile Picture" class="img-profile rounded-circle" style="object-fit: cover; width:30px; height: 30px;" src="~/images/default-user.jpg" />
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" asp-route-userId="@_userManager.GetUserId(User)">
+                        <i class="bi-gear"></i> Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/ChangePassword">
+                        <i class="bi bi-key"></i> Change Password
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" style="cursor: pointer" onclick="logout();">
+                        <i class="bi-door-open"></i> Logout
+                    </a>
+                </div>
+            </li>
+        }
+    </ul>
+</nav>
+
+<form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" method="post"></form>
+
+<script type="application/javascript">
+    function logout() {
+        $('#logoutForm').submit();
+    }
+</script>

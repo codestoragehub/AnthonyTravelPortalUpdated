@@ -1,0 +1,51 @@
+﻿@using AnthonyTravelPortal.UI.Areas.UserAccount.Controllers
+@model AnthonyTravelPortal.UI.Areas.Dashboard.ViewModels.DashBoardSettingsVm
+
+<div class="background-divder">
+	<div class="background-divder-header">
+		<h3 class="section-heading">
+			Manage User
+		</h3>
+	</div>
+	<div class="padding-20">
+		<div class="form-group col-md-12">
+			<table class="table table-striped" border="1">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Phone Number</th>
+						<th>Role</th>
+						<th>Client</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody class="jsUserItems" data-refresh-action="@Url.Action(nameof(ManageUserController.GetUsers), "ManageUser", new { area = "UserAccount" })">
+					@foreach (var item in Model.Userlist)
+					{
+						<tr>
+							<td>@Html.DisplayFor(modelItem => item.User_Name)</td>
+							<td>@Html.DisplayFor(modelItem => item.User_Email)</td>
+							<td>@Html.DisplayFor(modelItem => item.Phone_Number)</td>
+						    <td>@Html.DisplayFor(modelItem => item.Role_ID)</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Clientlist.Where(x =>x.Value == item.Client_ID).FirstOrDefault().Text)
+							</td>
+							<td>
+								<div class="btn-group btn-group-sm">
+									<button type="button" class="btn btn-primary btn-sm jsEditUser" data-edit-action="@Url.Action(nameof(ManageUserController.GetUser), "ManageUser", new { area = "UserAccount" , Id = item.User_ID  })">
+										<i class="bi-pencil"></i> Edit
+									</button>
+									<button type="button" class="btn btn-danger btn-sm jsRemoveUser" data-remove-action="@Url.Action(nameof(ManageUserController.DeleteClient), "ManageUser", new {area = "UserAccount" , Id = item.User_ID })">
+										<i class="bi-x"></i> Delete
+									</button>
+								</div>
+							</td>
+						</tr>
+					}
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+</div>

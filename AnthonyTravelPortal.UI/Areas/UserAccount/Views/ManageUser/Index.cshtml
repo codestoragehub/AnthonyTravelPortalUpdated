@@ -1,0 +1,19 @@
+﻿@using AnthonyTravelPortal.UI.Areas.UserAccount.Controllers
+@model List<AnthonyTravelPortal.UI.Areas.UserAccount.ViewModels.UserClientVm>
+
+@{
+    Layout = "~/Views/Shared/_Layout_Razor.cshtml";
+}
+
+@(await Html.PartialAsync("~/Areas/UserAccount/Views/ManageUser/Shared/UserItemView.cshtml"))
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ 
+<script type="application/javascript">
+	userSection.init();
+</script>
+}
+

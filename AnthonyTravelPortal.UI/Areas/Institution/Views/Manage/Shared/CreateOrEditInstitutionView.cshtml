@@ -1,0 +1,44 @@
+﻿@using AnthonyTravelPortal.UI.Areas.Institution.Controllers
+@model AnthonyTravelPortal.UI.Areas.Institution.ViewModels.InstitutionVm
+
+@{
+	string actionName;
+	string buttonText;
+	if (Model.Institution_ID is null or 0)
+	{
+		actionName = nameof(ManageController.CreateOrUpdateInstitution);
+		buttonText = "Create Institution";
+	}
+	else
+	{
+		actionName = nameof(ManageController.UpdateInstitution);
+		buttonText = "Update Institution";
+	}
+
+}
+
+@using (Html.BeginForm(actionName, "Manage", FormMethod.Post, new
+{
+	@class = "jsInstitutionForm formclass",
+	data_Institution_id = Model.Institution_ID
+}))
+{
+	@Html.HiddenFor(f => f.Institution_ID)
+	@Html.HiddenFor(f => f.UserId)
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(f => f.Institution_Name , new { @class="required" })
+				@Html.TextBoxFor(f => f.Institution_Name, new { @class = "form-control jsInstitutionName", aria_required= true })
+				@Html.ValidationMessageFor(f => f.Institution_Name)
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button class="btn btn-primary btn-sm" type="submit">@buttonText</button>
+			<button type="button" class="btn btn-danger btn-sm close-button JsCancel" data-dismiss="modal">Cancel</button>
+		</div>
+	</div>
+}

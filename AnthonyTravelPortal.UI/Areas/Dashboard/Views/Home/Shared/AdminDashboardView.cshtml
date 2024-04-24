@@ -1,0 +1,84 @@
+﻿@using AnthonyTravelPortal.UI.Areas.UserAccount.Controllers
+@model AnthonyTravelPortal.UI.Areas.Dashboard.ViewModels.DashBoardSettingsVm
+@{
+	ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-3">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#home"><b>Athletics</b></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#menu1"><b>UBT</b></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link active" data-toggle="tab" href="#menu2"><b>Manage Institution</b></a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div id="home" class="container tab-pane fade">
+			<br>
+			<h3>HOME</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+		</div>
+		<div id="menu1" class="container tab-pane fade">
+			<br>
+			<h3>Menu 1</h3>
+			<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		</div>
+		<div id="menu2" class="container tab-pane active">
+			<br>
+			<div class="background-divder">
+				<div class="background-divder-header">
+					<h3 class="section-heading">
+						Institution Name
+					</h3>
+				</div>
+				<div class="padding-20">
+					<div class="form-group col-md-6">
+						<select asp-items="@Model.Institutionlist" class="form-control">
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="background-divder">
+				<div class="background-divder-header">
+					<h3 class="section-heading">
+						Client Name
+					</h3>
+				</div>
+				<div class="padding-20">
+					<div class="form-group col-md-12">
+						<table class="table table-striped" border="1">
+							<thead>
+								<tr>
+									<th>Client Name</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model.Clientlist)
+								{
+									<tr>
+										<td>@Html.DisplayFor(modelItem => item.Text)</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			@(await Html.PartialAsync("~/Areas/Dashboard/Views/Home/Shared/UserListView.cshtml",Model))
+
+		</div>
+	</div>
+</div>
+
+
+
+

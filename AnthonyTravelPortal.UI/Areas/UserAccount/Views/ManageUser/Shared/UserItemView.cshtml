@@ -1,0 +1,38 @@
+﻿@using AnthonyTravelPortal.UI.Areas.UserAccount.Controllers
+@model List<AnthonyTravelPortal.UI.Areas.UserAccount.ViewModels.UserClientVm>
+
+<h1>User</h1>
+
+<div class="padding-20 jsUser">
+	<div class="btn-group btn-group-sm">
+		<button type="button" class="btn btn-success btn-sm jsAddUser" data-add-action="@Url.Action(nameof(ManageUserController.AddUser), "ManageUser", new { area = "UserAccount" })">
+			<i class="bi-plus-circle"></i> Add User
+		</button>
+		<button type="button" class="btn btn-primary btn-sm jsReloadUsers">
+			<i class="bi-recycle"></i> Reload User
+		</button>
+	</div>
+	
+	<div class="row">
+		<table id="tblUsers" class="table table-striped">
+			<caption>List of Users</caption>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Role</th>
+					<th>Client</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody class="jsUserItems" data-refresh-action="@Url.Action(nameof(ManageUserController.GetUsers), "ManageUser", new { area = "UserAccount" })">
+				@if (Model != null)
+				{
+					@(await Html.PartialAsync("~/Areas/UserAccount/Views/ManageUser/Shared/UserView.cshtml", Model))
+				}
+			</tbody>
+
+		</table>
+	</div>
+</div>

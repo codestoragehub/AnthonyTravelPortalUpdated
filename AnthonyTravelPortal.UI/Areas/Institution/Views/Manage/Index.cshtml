@@ -1,0 +1,18 @@
+﻿@using AnthonyTravelPortal.UI.Areas.Institution.Controllers
+@model List<AnthonyTravelPortal.UI.Areas.Institution.ViewModels.InstitutionVm>
+
+@{
+    Layout = "~/Views/Shared/_Layout_Razor.cshtml";
+}
+
+@(await Html.PartialAsync("~/Areas/Institution/Views/Manage/Shared/InstitutionItemView.cshtml"))
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+<script type="application/javascript">
+	institutionSection.init();
+</script>
+}

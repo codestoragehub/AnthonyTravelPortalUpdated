@@ -1,0 +1,28 @@
+﻿@using AnthonyTravelPortal.Domain.Enums
+@using AnthonyTravelPortal.UI.Areas.Identity.Pages.Account
+
+<nav id="sidebar" class="main-sidebar">
+<div class="sidebar-header">
+    <div class="logo-image" data-toggle="tooltip" title="Anthony Travel Home">
+        <a href="/" class="navbar-brand" tabindex="1">
+            <img alt="Anthony Travel Logo" src="~/images/AnthonyLogo.png" />
+        </a>
+    </div>
+</div>
+<ul class="list-unstyled components">
+    <li class="nav-item">
+        <a asp-area="Dashboard" asp-controller="Home" asp-action="Index" class="nav-link">Dashboard</a>
+    </li>
+      <li class="nav-item">
+        <a asp-area="Client" asp-controller="Manage" asp-action="Index" class="nav-link">Client</a>
+    </li>
+      <li class="nav-item">
+        <a asp-area="Institution" asp-controller="Manage" asp-action="Index" class="nav-link">Institution</a>
+    </li>
+     <li class="nav-item">
+        <a asp-area="UserAccount" asp-controller="ManageUser" asp-action="Index" class="nav-link">Add User</a>
+    </li>
+</ul>
+</nav>
+
+

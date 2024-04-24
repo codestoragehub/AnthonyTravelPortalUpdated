@@ -1,0 +1,21 @@
+﻿@using AnthonyTravelPortal.UI.Areas.Institution.Controllers
+@model List<AnthonyTravelPortal.UI.Areas.Institution.ViewModels.InstitutionVm>
+
+@foreach (var item in Model)
+{
+	<tr>
+		<td>
+			@Html.DisplayFor(modelItem => item.Institution_Name)
+		</td>
+		<td>
+			<div class="btn-group btn-group-sm">
+				<button type="button" class="btn btn-primary btn-sm jsEditInstitution" data-edit-action="@Url.Action(nameof(ManageController.GetInstitution), "Manage", new { area = "Institution" , InstitutionId = item.Institution_ID  })">
+					<i class="bi-pencil"></i> Edit
+				</button>
+				<button type="button" class="btn btn-danger btn-sm jsRemoveInstitution" data-remove-action="@Url.Action(nameof(ManageController.DeleteInstitution), "Manage", new {area = "Institution" , InstitutionId = item.Institution_ID })">
+					<i class="bi-x"></i> Delete
+				</button>
+			</div>
+		</td>
+	</tr>
+}

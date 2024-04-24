@@ -1,0 +1,40 @@
+﻿@using AnthonyTravelPortal.UI.Views.Shared.Components.Header
+@using AnthonyTravelPortal.UI.Views.Shared.Components.ImageModal
+@using AnthonyTravelPortal.UI.Views.Shared.Components.Logout
+@using AnthonyTravelPortal.UI.Views.Shared.Components.Sidebar
+@using AnthonyTravelPortal.UI.Views.Shared.Components.Title
+@using AnthonyTravelPortal.UI.Views.Shared.Components.FormModal
+@using AnthonyTravelPortal.UI.Views.Shared.Components.Footer
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>@ViewData["Title"] - Anthony Travel Portal</title>
+    <partial name="_Styles"/>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    @(await Component.InvokeAsync<HeaderViewComponent>())
+    @(await Component.InvokeAsync<SidebarViewComponent>())
+
+    <div class="content-wrapper" id="contentWrapper">
+        <div class="content">
+            <div class="container-fluid">
+                @(await Component.InvokeAsync<TitleViewComponent>())
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @(await Component.InvokeAsync<LogoutViewComponent>())
+    @(await Component.InvokeAsync<FormModalViewComponent>())
+    @(await Component.InvokeAsync<ImageModalViewComponent>())
+</div>
+@(await Component.InvokeAsync<FooterViewComponent>())
+
+<partial name="_Scripts"/>
+@await RenderSectionAsync("Scripts", false)
+</body>
+</html>
